@@ -13,9 +13,9 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="centos/s2i-core-centos8" \
+      name="cip-core-platform/s2i-core-centos8" \
       version="1" \
-      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+      maintainer="CIP Maintainers <maintainers@sgcip.io>"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
@@ -52,6 +52,7 @@ RUN INSTALL_PKGS="bsdtar \
   yum" && \
   mkdir -p ${HOME}/.pki/nssdb && \
   chown -R 1001:0 ${HOME}/.pki && \
+  yum update -y && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   yum -y clean all --enablerepo='*'

@@ -13,9 +13,9 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="s2i-core-container" \
-      name="centos7/s2i-core-centos7" \
+      name="cip-core-platform/s2i-core-centos7" \
       version="1" \
-      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+      maintainer="CIP Maintainers <maintainers@sgcip.io>"
 
 ENV \
     # DEPRECATED: Use above LABEL instead, because this will be removed in future versions.
@@ -53,6 +53,7 @@ RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
   yum-utils" && \
   mkdir -p ${HOME}/.pki/nssdb && \
   chown -R 1001:0 ${HOME}/.pki && \
+  yum update -y && \
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   yum -y clean all --enablerepo='*'
